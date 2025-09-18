@@ -1,3 +1,5 @@
+import {Link} from "react-router-dom";
+
 import { Code2, Paperclip, Bell, ClipboardList , User , File } from "lucide-react";
 import {
   Sidebar,
@@ -14,30 +16,46 @@ import {
 
 const elements = [
   {
-    title: "Projects",
-    url: "/admin/projects",
+    title: "Dashboard",
+    url: "/dashboard/dashboardPage",
     icon: Paperclip,
   },
   {
-    title: "Announcements",
-    url: "/admin/announcements",
+    title: "Upload",
+    url: "/dashboard/upload",
     icon: Bell,
   },
   {
-    title: "All Leads",
-    url: "/admin/leads",
+    title: "Economic Data ",
+    url: "/dashboard/economic",
     icon: User,
   },
   {
-    title: "All Members",
-    url: "/admin/members",
+    title: "History",
+    url: "/dashboard/history",
     icon: User,
   },
   {
-    title: "Pending Requests",
+    title: "Voice Assistant",
+    url: "/dashboard/voice",
+    icon: File,
+  },
+  {
+    title: "AI Assistant",
+    url: "/dashboard/ai",
+    icon: File,
+  },
+  {
+    title: "Profile",
     url: "/admin/requests",
     icon: File,
   },
+  {
+    title: "Settings",
+    url: "/admin/requests",
+    icon: File,
+  },
+
 ];
 
 // const items = [
@@ -59,19 +77,10 @@ export function AdminSidebar() {
               {elements.map((ele) => (
                 <SidebarMenuItem key={ele.title}>
                   <SidebarMenuButton asChild>
-                    <a href={ele.url}>
-                      <ele.icon />
-                      <span
-                        className="
-                          font-madimi
-                          text-[#2A2A4A]
-                          text-[16px]
-                         
-                        "
-                      >
-                        {ele.title}
-                      </span>
-                    </a>
+                     <Link to={ele.url} className="flex items-center gap-3 px-3 py-2 rounded hover:bg-[#C5D7F8]">
+                      <ele.icon className="w-5 h-5 text-[#2A2A4A]" />
+                      <span className="font-madimi text-[#2A2A4A] text-[16px]">{ele.title}</span>
+                    </Link>
                   </SidebarMenuButton>
                 </SidebarMenuItem>
               ))}

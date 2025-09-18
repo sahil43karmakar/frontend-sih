@@ -1,10 +1,34 @@
+import { BrowserRouter , Routes, Route, Navigate } from "react-router-dom";
 import Layout from './components/Essentials/layout'
+import DashboardCards from './dashboard/dashboardPage'
+import EconomicPage from "./dashboard/economic";
+import HistoryPage from "./dashboard/history";
+import ProfilePage from "./dashboard/profile";
+import SettingsPage from "./dashboard/settings";
+import UploadPage from "./dashboard/upload";
+import VoicePage from "./dashboard/voice";
+import AiChatAssistant from "./dashboard/ai";
 
-
-function App() {
+export default function App() {
   return (
-    <Layout>
-       <h1 className="text-3xl font-bold text-center">Hello World</h1>
+    <BrowserRouter>
+     <Layout>
+       <Routes>
+          {/* Default redirect: when user opens /dashboard, go to /dashboard/dashboardPage */}
+          <Route path="/dashboard" element={<Navigate to="/dashboard/dashboardPage" replace />} />
+
+          <Route path="/dashboard/dashboardPage" element={<DashboardCards />} />
+          <Route path="/dashboard/economic" element={<EconomicPage />} />
+          <Route path="/dashboard/history" element={<HistoryPage />} />
+          <Route path="/dashboard/profile" element={<ProfilePage />} />
+          <Route path="/dashboard/settings" element={<SettingsPage />} />
+          <Route path="/dashboard/upload" element={<UploadPage />} />
+          <Route path="/dashboard/voice" element={<VoicePage />} />
+          <Route path="/dashboard/ai" element={<AiChatAssistant />} />
+        </Routes>
+       
     </Layout>
+    </BrowserRouter>
+    
   )
 }

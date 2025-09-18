@@ -6,7 +6,7 @@ const MemberTopNavbar = () => {
           text-[32px]
           leading-[100%]
           tracking-[0%]
-          ml-6">WorkPilot</h1>
+          ml-6"></h1>
     <div className="flex items-center gap-4 mr-6">
       
 
