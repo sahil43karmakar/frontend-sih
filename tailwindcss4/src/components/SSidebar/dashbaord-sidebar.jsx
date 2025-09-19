@@ -8,6 +8,7 @@ import {
   Bot,
   Settings,
   User,
+  Map,
 } from "lucide-react";
 import { useTranslation } from "react-i18next";
 
@@ -22,7 +23,9 @@ export function AdminSidebar({ expanded }) {
     { title: t("voiceAssistant"), url: "/dashboard/voice", icon: Mic },
     { title: t("aiAssistant"), url: "/dashboard/ai", icon: Bot },
     { title: t("profile"), url: "/dashboard/profile", icon: User },
+      { title: "Map", url: "/dashboard/map", icon: Map },
     { title: t("settings"), url: "/dashboard/settings", icon: Settings },
+
   ];
 
   // The search filter is no longer needed here

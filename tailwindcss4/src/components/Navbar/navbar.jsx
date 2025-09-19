@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 import { useEffect, useState } from "react";
-import logo from "../../assets/logo.jpg";
+// MODIFIED: Corrected the path to the logo image using a common path alias.
+import logo from "@/assets/logo.jpg";
 
 export default function MemberTopNavbar({ search, setSearch }) {
   const [language, setLanguage] = useState("English");
@@ -33,6 +34,10 @@ export default function MemberTopNavbar({ search, setSearch }) {
         <span className="text-gray-500">🔍</span>
       </div>
       <div className="flex items-center gap-5 pr-6">
+        {/* 👇 ADDED: Link to the Map Page */}
+        <Link to="/dashboard/map" className="text-sm font-semibold text-gray-700 hover:text-blue-600 transition-colors">
+            Map
+        </Link>
         <span className="text-sm font-semibold text-gray-700">
           {time.toLocaleTimeString()}
         </span>
