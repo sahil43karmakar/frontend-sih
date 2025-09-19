@@ -1,133 +1,52 @@
-import {Link} from "react-router-dom";
-
-import { Code2, Paperclip, Bell, ClipboardList , User , File } from "lucide-react";
+import { Link } from "react-router-dom";
 import {
-  Sidebar,
-  SidebarContent,
-  SidebarMenuItem,
-  SidebarFooter,
-  SidebarMenu,
-  SidebarHeader,
-  SidebarGroup,
-  SidebarGroupContent,
-  SidebarMenuButton,
-  SidebarGroupLabel,
-} from "@/components/ui/sidebar";
+  LayoutDashboard,
+  Upload,
+  BarChart3,
+  History,
+  Mic,
+  Bot,
+  Settings,
+  User,
+} from "lucide-react";
+import { useTranslation } from "react-i18next";
 
-const elements = [
-  {
-    title: "Dashboard",
-    url: "/dashboard/dashboardPage",
-    icon: Paperclip,
-  },
-  {
-    title: "Upload",
-    url: "/dashboard/upload",
-    icon: Bell,
-  },
-  {
-    title: "Economic Data ",
-    url: "/dashboard/economic",
-    icon: User,
-  },
-  {
-    title: "History",
-    url: "/dashboard/history",
-    icon: User,
-  },
-  {
-    title: "Voice Assistant",
-    url: "/dashboard/voice",
-    icon: File,
-  },
-  {
-    title: "AI Assistant",
-    url: "/dashboard/ai",
-    icon: File,
-  },
-  {
-    title: "Profile",
-    url: "/admin/requests",
-    icon: File,
-  },
-  {
-    title: "Settings",
-    url: "/admin/requests",
-    icon: File,
-  },
+export function AdminSidebar({ expanded }) {
+  const { t } = useTranslation();
 
-];
+  const elements = [
+    { title: t("dashboard"), url: "/dashboard/dashboardPage", icon: LayoutDashboard },
+    { title: t("upload"), url: "/dashboard/upload", icon: Upload },
+    { title: t("economicData"), url: "/dashboard/economic", icon: BarChart3 },
+    { title: t("history"), url: "/dashboard/history", icon: History },
+    { title: t("voiceAssistant"), url: "/dashboard/voice", icon: Mic },
+    { title: t("aiAssistant"), url: "/dashboard/ai", icon: Bot },
+    { title: t("profile"), url: "/dashboard/profile", icon: User },
+    { title: t("settings"), url: "/dashboard/settings", icon: Settings },
+  ];
 
-// const items = [
-//   {
-//     title: "Web development",
-//     url: "#",
-//     icon: Code2,
-//   },
-// ];
+  // The search filter is no longer needed here
+  const filtered = elements;
 
-export function AdminSidebar() {
   return (
-    <Sidebar className="pt-10 [&>div]:bg-[#DCE7F8] shadow-xl">
-      <SidebarContent>
-        <SidebarGroup>
-          <SidebarGroupLabel></SidebarGroupLabel>
-          <SidebarGroupContent>
-            <SidebarMenu>
-              {elements.map((ele) => (
-                <SidebarMenuItem key={ele.title}>
-                  <SidebarMenuButton asChild>
-                     <Link to={ele.url} className="flex items-center gap-3 px-3 py-2 rounded hover:bg-[#C5D7F8]">
-                      <ele.icon className="w-5 h-5 text-[#2A2A4A]" />
-                      <span className="font-madimi text-[#2A2A4A] text-[16px]">{ele.title}</span>
-                    </Link>
-                  </SidebarMenuButton>
-                </SidebarMenuItem>
-              ))}
-            </SidebarMenu>
-          </SidebarGroupContent>
-        </SidebarGroup>
-
-        <SidebarGroup className="mt-8">
-          {/* <SidebarGroupLabel className="font-madimi
-                          
-                          text-bold
-                          text-[16px]
-                          
-                          
-                          text-[#2A2A4A] 
-                          font-large
-                          
-                          ">Domains</SidebarGroupLabel> */}
-          <SidebarGroupContent>
-            {/* <SidebarMenu>
-              {items.map((item) => (
-                <SidebarMenuItem key={item.title}>
-                  <SidebarMenuButton asChild>
-                    <a href={item.url}>
-                      <item.icon />
-                      <span
-                        className="
-                          font-madimi
-                          font-normal
-                          text-bold
-                          text-[16px]
-                          
-                          
-                          text-[#2A2A4A]
-                          
-                        "
-                      >
-                        {item.title}
-                      </span>
-                    </a>
-                  </SidebarMenuButton>
-                </SidebarMenuItem>
-              ))}
-            </SidebarMenu> */}
-          </SidebarGroupContent>
-        </SidebarGroup>
-      </SidebarContent>
-    </Sidebar>
+    <div className="h-full bg-[#DCE7F8] shadow-xl border-r pt-4">
+      <nav className="flex flex-col gap-2">
+        {filtered.map((ele) => (
+          <Link
+            key={ele.title}
+            to={ele.url}
+            className="flex items-center gap-3 px-3 py-2 rounded hover:bg-[#C5D7F8] transition"
+          >
+            <ele.icon className="w-5 h-5 text-[#2A2A4A]" />
+            {expanded && (
+              <span className="font-madimi text-[#2A2A4A] text-[15px]">
+                {ele.title}
+              </span>
+            )}
+          </Link>
+        ))}
+      </nav>
+    </div>
   );
 }
+

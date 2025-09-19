@@ -1,20 +1,29 @@
-import { SidebarProvider } from "@/components/ui/sidebar";
+import { useState } from "react";
 import { AdminSidebar } from "../SSidebar/dashbaord-sidebar";
 import MemberTopNavbar from "../Navbar/navbar";
+import { Outlet } from "react-router-dom";
 
-export default function Layout({ children }) {
+export default function Layout() {
+  const [expanded, setExpanded] = useState(true);
+  const [search, setSearch] = useState("");
+
   return (
-    <SidebarProvider>
-       <div className="flex min-h-screen">
-      <AdminSidebar/>
-      <div className="flex-1 flex flex-col">
-        <MemberTopNavbar/>
-        <main className="flex-1 bg-[#fbf8f3] p-6">{children}</main>
+    <div className="flex h-screen w-full bg-[#fbf8f3] overflow-hidden">
+      <MemberTopNavbar search={search} setSearch={setSearch} />
+      <div className="flex flex-1 pt-16">
+        <div
+          className={`h-full transition-all duration-300 ${
+            expanded ? "w-56" : "w-16"
+          }`}
+          onMouseEnter={() => setExpanded(true)}
+          onMouseLeave={() => setExpanded(false)}
+        >
+          <AdminSidebar expanded={expanded} searchTerm={search} />
+        </div>
+        <main className="flex-1 overflow-y-auto">
+          <Outlet context={{ search }} />
+        </main>
       </div>
     </div>
-  )
-    </SidebarProvider>
-    
-  )
+  );
 }
-

@@ -1,6 +1,7 @@
 @import "tailwindcss";
 @import "tw-animate-css";
 
+
 @custom-variant dark (&:is(.dark *));
 
 :root {
@@ -184,3 +185,22 @@ button:focus-visible {
     @apply bg-background text-foreground;
   }
 }
+@keyframes fadeInDown {
+  from { opacity: 0; transform: translateY(-20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+
+.animate-fadeInDown { animation: fadeInDown 0.8s ease-out; }
+.animate-fadeInUp { animation: fadeInUp 0.8s ease-out; }
+.animate-fadeIn { animation: fadeIn 1s ease-in-out; }
+
+@keyframes ring { 0% { transform: rotate(0); } 10% { transform: rotate(15deg); } 20% { transform: rotate(-10deg); } 30% { transform: rotate(5deg); } 40% { transform: rotate(-5deg); } 50% { transform: rotate(2deg); } 60% { transform: rotate(-2deg); } 100% { transform: rotate(0); } } .animate-bell { animation: ring 2s infinite; transform-origin: top center; }

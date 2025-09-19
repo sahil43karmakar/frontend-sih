@@ -1,79 +1,128 @@
+import { useState } from "react";
+
 export default function History() {
   const stats = [
-    { title: "Total Activities", value: 5, subtitle: "All time" },
-    { title: "Breed Identifications", value: 2, subtitle: "Successful scans" },
-    { title: "Voice Queries", value: 1, subtitle: "Voice interactions" },
-    { title: "Chat Messages", value: 1, subtitle: "Text conversations" },
+    { value: 1247, label: "All time", color: "bg-blue-100 text-blue-700" },
+    { value: 1200, label: "Successful scans", color: "bg-green-100 text-green-700" },
+    { value: 320, label: "Voice interactions", color: "bg-yellow-100 text-yellow-700" },
+    { value: 145, label: "Text conversations", color: "bg-purple-100 text-purple-700" },
   ];
 
-  const logs = [
+  const activities = [
     {
+      id: 1,
+      icon: "🐄",
       type: "identification",
-      icon: "🟢", // alternatively use image icons
-      title: "Gir Cow Identified",
-      desc: "Breed identification completed with high confidence",
-      tags: [{ label: "identification", color: "bg-gray-200 text-gray-800" }, { label: "Gir", color: "bg-green-200 text-green-700" }, { label: "94% confidence", color: "bg-green-600 text-white" }],
-      time: "17/09/2025, 21:32:48"
+      tag: "Gir",
+      confidence: "94% confidence",
+      description: "Breed identification completed with high confidence",
+      time: "17/09/2025, 21:32:48",
     },
     {
+      id: 2,
+      icon: "🎤",
       type: "voice",
-      icon: "🔵",
-      title: "Voice Query: Holstein Care",
-      desc: "Asked about Holstein cattle vaccination schedule",
-      tags: [{ label: "voice", color: "bg-gray-200 text-gray-800" }, { label: "Holstein", color: "bg-blue-200 text-blue-700" }],
-      time: "17/09/2025, 19:32:48"
+      tag: "Holstein",
+      description: "Asked about Holstein cattle vaccination schedule",
+      time: "17/09/2025, 19:32:48",
     },
-    {
-      type: "chat",
-      icon: "🟣",
-      title: "Chat: Market Prices",
-      desc: "Inquired about current cattle market prices",
-      tags: [{ label: "chat", color: "bg-gray-200 text-gray-800" }],
-      time: "17/09/2025, 17:32:48"
-    }
   ];
+
+  const [hovered, setHovered] = useState(null);
 
   return (
-    <div className="bg-[#fcf8ee] min-h-screen p-8">
-      <div className="flex items-center justify-between mb-4">
-        <div>
-          <h1 className="text-2xl font-bold mb-1 p-8">History</h1>
-          <p className="text-gray-500 mb-2">View and manage your cattle identification history and AI interactions.</p>
-        </div>
-        <button className="flex items-center gap-2 px-4 py-2 bg-[#f7f5ee] border rounded-lg shadow font-medium">
-          <span>⬇️</span>
-          Export
-        </button>
+    // 👇 MODIFIED: Changed to a flex column layout
+    <div className="h-full w-full bg-[#fcf8ee] p-6 flex flex-col">
+      {/* Header */}
+      <div>
+        <h1 className="text-4xl font-extrabold mb-3 bg-gradient-to-r from-purple-600 to-blue-600 text-transparent bg-clip-text">
+          History
+        </h1>
+        <p className="text-gray-600 mb-10 text-lg">
+          View and manage your cattle identification history and AI interactions.
+        </p>
       </div>
+
       {/* Stats Cards */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-5 mb-7">
-        {stats.map((stat) => (
-          <div key={stat.title} className="bg-white rounded-xl border border-gray-200 shadow p-5 flex flex-col">
-            <div className="font-bold text-lg">{stat.title}</div>
-            <div className="text-3xl font-semibold my-2">{stat.value}</div>
-            <div className="text-xs text-gray-600">{stat.subtitle}</div>
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-6">
+        {stats.map((stat, idx) => (
+          <div
+            key={idx}
+            className="bg-white rounded-2xl shadow-lg p-6 flex flex-col items-center justify-center"
+          >
+            <div
+              className={`text-3xl font-extrabold mb-2 px-4 py-2 rounded-lg ${stat.color}`}
+            >
+              {stat.value}
+            </div>
+            <div className="text-sm text-gray-600">{stat.label}</div>
           </div>
         ))}
       </div>
-      {/* Log Entries */}
-      <div className="space-y-4">
-        {logs.map((log, i) => (
-          <div key={i} className="bg-white rounded-xl border border-gray-200 shadow px-6 py-4 flex flex-col">
-            <div className="flex items-center gap-2 mb-2">
-              <span className="text-2xl">{log.icon}</span>
-              <span className="font-semibold text-md">{log.title}</span>
-              {log.tags.map((tag, ti) =>
-                <span key={ti} className={`ml-2 px-2 py-1 rounded text-xs ${tag.color}`}>{tag.label}</span>
-              )}
+
+      {/* Activity Section */}
+      {/* 👇 MODIFIED: This section now grows/shrinks to fill remaining space */}
+      <div className="flex-1 space-y-6 overflow-y-auto">
+        {activities.map((activity) => (
+          <div
+            key={activity.id}
+            className="bg-white rounded-2xl shadow-lg p-6 flex items-center justify-between hover:shadow-xl transition transform hover:scale-[1.01]"
+          >
+            {/* Left Side */}
+            <div className="flex items-center gap-4">
+              <span className="text-3xl">{activity.icon}</span>
+              <div>
+                <div className="flex flex-wrap gap-2 mb-1">
+                  <span className="px-2 py-1 bg-gray-200 text-xs rounded-md font-medium">
+                    {activity.type}
+                  </span>
+                  {activity.tag && (
+                    <span className="px-2 py-1 bg-gray-200 text-xs rounded-md font-medium">
+                      {activity.tag}
+                    </span>
+                  )}
+                  {activity.confidence && (
+                    <span className="px-2 py-1 bg-gray-200 text-xs rounded-md font-medium">
+                      {activity.confidence}
+                    </span>
+                  )}
+                </div>
+                <p className="text-gray-800 font-medium">{activity.description}</p>
+                <p className="text-xs text-gray-500">{activity.time}</p>
+              </div>
             </div>
-            <div className="text-xs text-gray-600 mb-1">{log.desc}</div>
-            <div className="text-xs text-gray-400 mb-2">{log.time}</div>
-            <div className="flex gap-4 ml-auto">
-              {/* Optional: replace emoji with icons */}
-              <button title="View" className="text-lg">👁️</button>
-              <button title="Download" className="text-lg">⬇️</button>
-              <button title="Upload" className="text-lg">⬆️</button>
-              <button title="Delete" className="text-lg">🗑️</button>
+
+            {/* Right Side Actions */}
+            <div className="flex gap-3 relative">
+              {[
+                { icon: "👁️", label: "Preview" },
+                { icon: "⬇️", label: "Download" },
+                { icon: "🗑️", label: "Delete" },
+              ].map((btn, idx) => {
+                const hoverKey = `${activity.id}-${btn.label}`;
+                return (
+                  <div
+                    key={idx}
+                    className="relative"
+                    onMouseEnter={() => setHovered(hoverKey)}
+                    onMouseLeave={() => setHovered(null)}
+                  >
+                    <button
+                      className="p-2 bg-gray-100 rounded-lg hover:bg-gray-200 transition 
+                                 transform hover:scale-110 shadow-md"
+                    >
+                      {btn.icon}
+                    </button>
+
+                    {/* Tooltip */}
+                    {hovered === hoverKey && (
+                      <div className="absolute bottom-12 left-1/2 -translate-x-12 px-3 py-1 bg-black text-white text-xs rounded shadow-lg whitespace-nowrap">
+                        {btn.label}
+                      </div>
+                    )}
+                  </div>
+                );
+              })}
             </div>
           </div>
         ))}
@@ -81,4 +130,6 @@ export default function History() {
     </div>
   );
 }
+
+
 

@@ -1,48 +1,52 @@
 export default function VoiceAssistant() {
-  const quickCommands = [
-    'What is Gir cow milk yield?',
-    'Current cattle market prices',
-    'Show me Holstein care tips',
-    'Vaccination schedule for calves',
-  ];
-
   return (
-    <div className="bg-[#fcf8ee] min-h-screen p-8">
+    // 👇 MODIFIED: This line fixes the layout, scrolling, and spacing
+    <div className="h-full w-full bg-[#fcf8ee] p-6 overflow-y-auto">
       {/* Header */}
-      <div className="mb-6">
-        <h1 className="text-2xl font-bold mb-1 p-8">Voice Assistant</h1>
-        <p className="text-gray-500 text-md">
-          Get instant answers to your cattle farming questions using voice commands or text chat.
-        </p>
-      </div>
+      <h1 className="text-4xl font-extrabold mb-3 bg-gradient-to-r from-blue-700 to-teal-600 text-transparent bg-clip-text">
+        Voice Assistant
+      </h1>
+      <p className="text-gray-600 mb-8 text-lg">
+        Get instant answers to your cattle farming questions using voice commands or text chat.
+      </p>
 
-      {/* Voice Assistant Card */}
-      <div className="bg-white rounded-xl border border-gray-200 shadow p-7 mb-4 max-w-lg">
-        <div className="flex items-center gap-2 mb-3">
-          <span className="text-xl font-semibold">🟢 Voice Assistant</span>
-        </div>
-        <p className="text-gray-600 text-sm mb-4">Speak naturally in your preferred language to get instant answers</p>
-        <div className="flex items-center mb-4">
-          <button className="w-10 h-10 rounded-full bg-green-600 flex justify-center items-center text-white text-2xl mr-3">
+      {/* Card */}
+      <div className="bg-white rounded-2xl shadow-lg border p-6">
+        <div className="flex justify-between items-center mb-6">
+          <h2 className="text-xl font-bold flex items-center gap-2">
+            <span className="w-3 h-3 rounded-full bg-green-500 inline-block"></span>
+            Voice Assistant
+          </h2>
+          <button className="w-12 h-12 flex items-center justify-center rounded-lg bg-black text-white text-2xl hover:scale-110 transition">
             🎤
           </button>
-          <button className="bg-gray-100 px-4 py-2 rounded border text-sm font-medium">Audio On</button>
         </div>
-        <div>
-          <span className="font-semibold mb-1 block text-gray-700">Quick Commands:</span>
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 mt-2">
-            {quickCommands.map((cmd, i) => (
-              <button key={i} className="bg-gray-100 px-3 py-2 rounded border text-sm font-medium w-full text-left">
-                "{cmd}"
-              </button>
-            ))}
-          </div>
-          <div className="text-xs mt-3 text-gray-400">
-            Voice recognition available in: English, हिंदी, पंजाबी, तेलुगु, बांग्ला, मराठी
-          </div>
+
+        <p className="text-gray-600 mb-6">
+          Tap the mic and speak naturally in your preferred language to get instant answers.
+        </p>
+
+        {/* Quick Commands */}
+        <h3 className="font-semibold mb-3">Quick Commands:</h3>
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          {[
+            "What is Gir cow milk yield?",
+            "Current cattle market prices",
+            "Show me Holstein care tips",
+            "Vaccination schedule for calves",
+          ].map((cmd, idx) => (
+            <button
+              key={idx}
+              className="px-4 py-3 rounded-lg bg-gradient-to-r from-green-100 to-blue-100 shadow hover:shadow-md hover:scale-105 transition text-gray-700 font-medium text-sm text-left"
+            >
+              {cmd}
+            </button>
+          ))}
         </div>
       </div>
     </div>
   );
 }
+
+
 
